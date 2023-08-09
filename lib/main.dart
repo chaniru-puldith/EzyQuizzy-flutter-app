@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(EzyQuizzy());
 
-
 class EzyQuizzy extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -26,20 +25,29 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  int questionNumber = 0;
+
   List<Icon> icons = [];
+
+  List<String> questions = [
+    'Can you lead a cow down stairs but not up stairs',
+    'Can you lead a human down stairs but not up stairs',
+    'Can you lead a elephant down stairs but not up stairs'
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Expanded(
+       Expanded(
           flex: 5,
           child: Center(
             child: Text(
-              'This is where the question text will go.',
+              questions[questionNumber],
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 25.0,
                 color: Colors.white,
               ),
@@ -61,6 +69,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
+                questionNumber++;
                 setState(() {
                   icons.add(
                     const Icon(
@@ -89,6 +98,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 setState(() {
+                  questionNumber++;
                   icons.add(
                     const Icon(
                       Icons.close,
@@ -107,4 +117,3 @@ class _QuizPageState extends State<QuizPage> {
     );
   }
 }
-
