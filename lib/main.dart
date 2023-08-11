@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'question_brain.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 QuestionBrain quizBrain = QuestionBrain();
 
@@ -64,7 +65,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                checkAnswer(true);
+                checkAnswer(true, context);
               },
             ),
           ),
@@ -84,19 +85,22 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                checkAnswer(false);
+                checkAnswer(false, context);
               },
             ),
           ),
         ),
-        Row(
-          children: icons,
+        SizedBox(
+          height: 30,
+          child: Row(
+            children: icons,
+          ),
         )
       ],
     );
   }
 
-  void checkAnswer(bool userSelection) {
+  void checkAnswer(bool userSelection, context) {
     setState(() {
       bool correctAnswer = quizBrain.getAnswer();
 
@@ -117,6 +121,15 @@ class _QuizPageState extends State<QuizPage> {
       }
 
       quizBrain.nextQuestion();
+
+      if (quizBrain.isQuizFinished()) {
+        Alert(
+            context: context, title: "Finished!",
+            desc: "You've reached the end of the quiz."
+        ).show();
+        icons.clear();
+        quizBrain.reset();
+      }
     });
   }
 }
