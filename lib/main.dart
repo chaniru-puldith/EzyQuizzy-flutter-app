@@ -64,10 +64,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                setState(() {
-                  quizBrain.nextQuestion();
-                  checkAnswer(true);
-                });
+                checkAnswer(true);
               },
             ),
           ),
@@ -87,10 +84,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                setState(() {
-                  quizBrain.nextQuestion();
-                  checkAnswer(false);
-                });
+                checkAnswer(false);
               },
             ),
           ),
@@ -103,21 +97,26 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   void checkAnswer(bool userSelection) {
-    bool correctAnswer = quizBrain.getAnswer();
-    if (userSelection == correctAnswer) {
-      icons.add(
-        const Icon(
-          Icons.check,
-          color: Colors.green,
-        ),
-      );
-    } else {
-      icons.add(
-        const Icon(
-          Icons.close,
-          color: Colors.red,
-        ),
-      );
-    }
+    setState(() {
+      bool correctAnswer = quizBrain.getAnswer();
+
+      if (userSelection == correctAnswer) {
+        icons.add(
+          const Icon(
+            Icons.check,
+            color: Colors.green,
+          ),
+        );
+      } else {
+        icons.add(
+          const Icon(
+            Icons.close,
+            color: Colors.red,
+          ),
+        );
+      }
+
+      quizBrain.nextQuestion();
+    });
   }
 }
