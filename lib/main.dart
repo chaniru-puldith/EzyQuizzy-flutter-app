@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'question_brain.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
-QuestionBrain quizBrain = QuestionBrain();
 
 void main() => runApp(EzyQuizzy());
+
 
 class EzyQuizzy extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.grey[800],
+        backgroundColor: Colors.grey.shade900,
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(10.0),
@@ -23,13 +23,18 @@ class EzyQuizzy extends StatelessWidget {
   }
 }
 
+
 class QuizPage extends StatefulWidget {
   @override
   State<QuizPage> createState() => _QuizPageState();
 }
 
+
 class _QuizPageState extends State<QuizPage> {
+  QuestionBrain quizBrain = QuestionBrain();
   List<Icon> icons = [];
+
+  double progress = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +42,16 @@ class _QuizPageState extends State<QuizPage> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-       Expanded(
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            LinearProgressIndicator(
+              value: progress,
+              backgroundColor: Colors.grey.shade800,
+            ),
+          ],
+        ),
+        Expanded(
           flex: 5,
           child: Center(
             child: Text(
@@ -102,26 +116,6 @@ class _QuizPageState extends State<QuizPage> {
 
   void checkAnswer(bool userSelection, context) {
     setState(() {
-      bool correctAnswer = quizBrain.getAnswer();
-
-      if (userSelection == correctAnswer) {
-        icons.add(
-          const Icon(
-            Icons.check,
-            color: Colors.green,
-          ),
-        );
-      } else {
-        icons.add(
-          const Icon(
-            Icons.close,
-            color: Colors.red,
-          ),
-        );
-      }
-
-      quizBrain.nextQuestion();
-
       if (quizBrain.isQuizFinished()) {
         Alert(
             context: context, title: "Finished!",
@@ -129,6 +123,28 @@ class _QuizPageState extends State<QuizPage> {
         ).show();
         icons.clear();
         quizBrain.reset();
+        progress = 0.0;
+      } else {
+        bool correctAnswer = quizBrain.getAnswer();
+
+        if (userSelection == correctAnswer) {
+          icons.add(
+            const Icon(
+              Icons.check,
+              color: Colors.green,
+            ),
+          );
+        } else {
+          icons.add(
+            const Icon(
+              Icons.close,
+              color: Colors.red,
+            ),
+          );
+        }
+
+        quizBrain.nextQuestion();
+        progress  = quizBrain.getProgress();
       }
     });
   }

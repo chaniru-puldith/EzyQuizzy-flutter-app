@@ -62,4 +62,10 @@ class QuestionBrain {
   void reset() {
     _questionNumber = 0;
   }
+
+
+  double getProgress() {
+    return (_questionNumber / 13);
+  }
+
 }
