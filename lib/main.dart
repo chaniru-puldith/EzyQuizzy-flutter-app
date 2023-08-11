@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'question_brain.dart';
+
+QuestionBrain quizBrain = QuestionBrain();
 
 void main() => runApp(EzyQuizzy());
 
@@ -25,15 +28,7 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-  int questionNumber = 0;
-
   List<Icon> icons = [];
-
-  List<String> questions = [
-    'Can you lead a cow down stairs but not up stairs',
-    'Can you lead a human down stairs but not up stairs',
-    'Can you lead a elephant down stairs but not up stairs'
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +40,7 @@ class _QuizPageState extends State<QuizPage> {
           flex: 5,
           child: Center(
             child: Text(
-              questions[questionNumber],
+              quizBrain.getQuestion(),
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 25.0,
@@ -69,14 +64,9 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                questionNumber++;
                 setState(() {
-                  icons.add(
-                    const Icon(
-                      Icons.check,
-                      color: Colors.green,
-                    ),
-                  );
+                  quizBrain.nextQuestion();
+                  checkAnswer(true);
                 });
               },
             ),
@@ -98,13 +88,8 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 setState(() {
-                  questionNumber++;
-                  icons.add(
-                    const Icon(
-                      Icons.close,
-                      color: Colors.red,
-                    ),
-                  );
+                  quizBrain.nextQuestion();
+                  checkAnswer(false);
                 });
               },
             ),
@@ -115,5 +100,24 @@ class _QuizPageState extends State<QuizPage> {
         )
       ],
     );
+  }
+
+  void checkAnswer(bool userSelection) {
+    bool correctAnswer = quizBrain.getAnswer();
+    if (userSelection == correctAnswer) {
+      icons.add(
+        const Icon(
+          Icons.check,
+          color: Colors.green,
+        ),
+      );
+    } else {
+      icons.add(
+        const Icon(
+          Icons.close,
+          color: Colors.red,
+        ),
+      );
+    }
   }
 }
