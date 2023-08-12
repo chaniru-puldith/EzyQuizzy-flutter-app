@@ -29,13 +29,14 @@ class QuestionBrain {
         answer: true),
     Question(
         question: 'In West Virginia, USA, if you accidentally hit an animal with your car, you are free to take it home to eat.',
-        answer: true),
+        answer: false),
   ];
 
 
   void nextQuestion() {
     if (_questionNumber < _questionBank.length - 1) {
       _questionNumber++;
+      print(_questionNumber);
     }
   }
 

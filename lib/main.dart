@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'question_brain.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'dart:async';
 
 
 void main() => runApp(EzyQuizzy());
@@ -117,35 +118,59 @@ class _QuizPageState extends State<QuizPage> {
   void checkAnswer(bool userSelection, context) {
     setState(() {
       if (quizBrain.isQuizFinished()) {
-        Alert(
-            context: context, title: "Finished!",
-            desc: "You've reached the end of the quiz."
-        ).show();
-        icons.clear();
-        quizBrain.reset();
-        progress = 0.0;
+        addIcons(userSelection);
+        progress = 1.0;
+
+        Timer(const Duration(milliseconds: 300), () {
+          Alert(
+            context: context,
+            style: const AlertStyle(isOverlayTapDismiss: false),
+            title: "Finished!",
+            desc: "You've reached the end of the quiz.",
+            buttons: [
+              DialogButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  setState(() {
+                    icons.clear();
+                    quizBrain.reset();
+                    progress = 0.0;
+                  });
+                },
+                width: 120,
+                child: const Text(
+                  "CANCEL",
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+              )
+            ],
+          ).show();
+        });
       } else {
-        bool correctAnswer = quizBrain.getAnswer();
-
-        if (userSelection == correctAnswer) {
-          icons.add(
-            const Icon(
-              Icons.check,
-              color: Colors.green,
-            ),
-          );
-        } else {
-          icons.add(
-            const Icon(
-              Icons.close,
-              color: Colors.red,
-            ),
-          );
-        }
-
+        addIcons(userSelection);
         quizBrain.nextQuestion();
         progress  = quizBrain.getProgress();
       }
     });
+  }
+
+  void addIcons(bool userSelection) {
+    bool correctAnswer = quizBrain.getAnswer();
+
+    if (userSelection == correctAnswer) {
+      icons.add(
+        const Icon(
+          Icons.check,
+          color: Colors.green,
+        ),
+      );
+    } else {
+      icons.add(
+        const Icon(
+          Icons.close,
+          color: Colors.red,
+        ),
+      );
+    }
   }
 }
