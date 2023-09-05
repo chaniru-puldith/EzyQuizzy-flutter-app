@@ -1,4 +1,4 @@
-# ezyquizzy
+# EzyQuizzy
 
 A simple Flutter app created for quizzes.
 
@@ -6,11 +6,14 @@ A simple Flutter app created for quizzes.
 
 This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+Designed and developed a user-friendly mobile “EzyQuizzy” quiz
+application using Flutter framework, ensuring a seamless and
+intuitive UI/UX experience. Implemented interactive quiz features,
+real-time scoring, and a visually appealing design, resulting in an
+engaging platform for users to test their knowledge.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# ScreenShots
+<img src="https://github.com/chaniru-puldith/EzyQuizzy-flutter-app/assets/131237062/89bdd139-5e44-487f-9ce5-2723beb3523d" width="400px">
+<img src="https://github.com/chaniru-puldith/EzyQuizzy-flutter-app/assets/131237062/c6de0f39-b920-489b-b921-af61ac063eba" width="400px" align="right">&nbsp;&nbsp;<br><br>
+<img src="https://github.com/chaniru-puldith/EzyQuizzy-flutter-app/assets/131237062/ac019035-a27d-4ecd-ba6f-ec85a4a60f49" width="400px">
+<img src="https://github.com/chaniru-puldith/EzyQuizzy-flutter-app/assets/131237062/36271413-2be2-4d3e-9c3b-0a755c1bd3eb" width="400px" align="right">&nbsp;&nbsp;<br><br>
